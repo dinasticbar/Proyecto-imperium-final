@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generar y Leer QR</title>
+    <link rel="stylesheet" href="{% static 'qr.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="{% static 'qr.js' %}" defer></script>
+</head>
+<body>
+    <div class="top-bar">
+        <span style="font-weight:bold;">&nbsp;</span>
+        <a href="home.html" class="volver-btn">Volver</a>
+    </div>
+    <h2>Generador y Lector de QR</h2>
+    <input id="text" type="text" placeholder="Texto para QR" />
+    <div id="qr"></div>
+    <script>
+        // Generador automático de QR
+        const input = document.getElementById('text');
+        const qrDiv = document.getElementById('qr');
+        let qr;
+
+        function updateQR() {
+            if (!qr) {
+                qr = new QRious({
+                    element: document.createElement('canvas'),
+                    size: 200,
+                    value: input.value
+                });
+                qrDiv.innerHTML = '';
+                qrDiv.appendChild(qr.element);
+            } else {
+                qr.value = input.value;
+            }
+        }
+
+        input.addEventListener('input', updateQR);
+
+        // Inicializa con valor vacío
+        updateQR();
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Capturas</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <style>
+        .captures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+            padding: 24px;
+        }
+        .capture-card {
+            background: #2b3039;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .capture-card img {
+            width: 100%;
+            display: block;
+        }
+        .capture-info {
+            padding: 10px 12px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        .capture-info .camera-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .capture-info .capture-date {
+            opacity: 0.8;
+        }
+        .top-bar {
+            padding: 14px 24px;
+            background: #23272f;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar a {
+            color: #4f8cff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h2>Capturas</h2>
+        <a href="{% url 'cameras:camera_list' %}">Volver a cámaras</a>
+    </div>
+    <div class="captures-grid">
+        {% for cap in captures %}
+        <div class="capture-card">
+            <img src="{{ cap.image.url }}" alt="Captura de {{ cap.camera.name }}">
+            <div class="capture-info">
+                <div class="camera-name">{{ cap.camera.name }}</div>
+                <div class="capture-date">{{ cap.created_at|date:"d/m/Y H:i" }}</div>
+            </div>
+        </div>
+        {% empty %}
+        <p style="color:white; padding:24px;">No hay capturas todavía.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

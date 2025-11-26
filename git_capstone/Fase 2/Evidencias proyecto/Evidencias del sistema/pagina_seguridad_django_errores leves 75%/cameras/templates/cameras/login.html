@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Imperium · Iniciar sesión</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        
+        <h2>Acceso al panel</h2>
+        {% if error %}
+        <div id="loginMessage" style="color:red; margin-bottom: 10px;">{{ error }}</div>
+        {% endif %}
+        <form id="loginForm" method="post">
+            {% csrf_token %}
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Entrar</button>
+            <p>¿No tienes una cuenta? <a href="{% url 'cameras:registro' %}">Regístrate aquí</a>.</p>
+        </form>
+    </div>
+</body>
+</html>

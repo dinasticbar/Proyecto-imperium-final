@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar cámara</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <style>
+        .add-wrapper {
+            max-width: 720px;
+            margin: 40px auto;
+            background: #1f242b;
+            padding: 28px 32px;
+            border-radius: 18px;
+            color: #fff;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.55);
+        }
+        .add-wrapper h2 {
+            margin-top: 0;
+            margin-bottom: 4px;
+            font-size: 1.6rem;
+        }
+        .add-wrapper p.subtitle {
+            margin-top: 0;
+            margin-bottom: 18px;
+            opacity: .8;
+            font-size: 0.9rem;
+        }
+        .add-wrapper label {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+        .add-wrapper input,
+        .add-wrapper textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid #3a4250;
+            background: #15191f;
+            color: #fff;
+            margin-top: 4px;
+        }
+        .add-wrapper button {
+            margin-top: 18px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: none;
+            background: #5865f2;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .add-wrapper button:hover {
+            background: #4752c4;
+        }
+        .actions-row {
+            display:flex;
+            flex-wrap:wrap;
+            gap:12px;
+            margin-top:22px;
+        }
+        .actions-row a {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            padding:10px 18px;
+            border-radius:999px;
+            text-decoration:none;
+            font-size:0.9rem;
+            font-weight:500;
+        }
+        .primary-link {
+            background:#22c55e;
+            color:#020617;
+        }
+        .secondary-link {
+            background:transparent;
+            border:1px solid #4b5563;
+            color:#e5e7eb;
+        }
+        .top-nav {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:16px 24px;
+            background:#15191f;
+            color:#fff;
+        }
+        .top-nav a {
+            color:#f87171;
+            text-decoration:none;
+            font-weight:500;
+        }
+        .top-nav a:hover {
+            text-decoration:underline;
+        }
+        .error-text {
+            color:#fca5a5;
+            margin-top:8px;
+            font-size:0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div>
+            <strong>imperium</strong> · Nueva cámara
+        </div>
+        <a href="{% url 'cameras:camera_list' %}">Volver al panel</a>
+    </div>
+    <div class="add-wrapper">
+        <h2>Registrar nueva cámara</h2>
+        <p class="subtitle">
+            Completa los datos de la cámara. Primero podrás verla directamente en este sistema
+            y, si lo deseas, generar un código QR para acceder desde otro dispositivo.
+        </p>
+
+        {% if error %}
+        <p class="error-text">{{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_name">Nombre</label>
+            <input type="text" id="id_name" name="name" required placeholder="Ej: Cámara pasillo">
+
+            <label for="id_rtsp">RTSP URL</label>
+            <input type="text" id="id_rtsp" name="rtsp_url" required placeholder="rtsp://usuario:password@ip:554/stream1">
+
+            <label for="id_desc">Descripción (opcional)</label>
+            <textarea id="id_desc" name="description" rows="3" placeholder="Ubicación, notas, etc."></textarea>
+
+            <button type="submit">Guardar cámara</button>
+        </form>
+
+        {% if camera %}
+        <div class="actions-row">
+            <a href="{% url 'cameras:camera_stream' %}?camera={{ camera.id }}" class="primary-link" target="_blank">
+                Ver cámara ahora
+            </a>
+            <a href="{% url 'cameras:generate_qr' camera.id %}" class="secondary-link" target="_blank">
+                Generar QR para otro dispositivo
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
