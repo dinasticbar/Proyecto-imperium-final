@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Imperium · Panel de cámaras</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">I</div>
+            <span class="logo-text" style="font-weight:900;letter-spacing:-2px;">IMPERIUM</span>
+        </div>
+        <div class="user-actions">
+            
+            <a href="{% url 'cameras:logout' %}" class="logout-btn">Cerrar sesión</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="cameras-container">
+            <div class="panel-header">
+                <div>
+                    <h1 class="panel-title">Cámaras activas</h1>
+                    <p class="panel-subtitle">Gestiona tus flujos RTSP, genera QR y captura evidencia en tiempo real.</p>
+                </div>
+            </div>
+
+            {% if cameras %}
+                <div class="camera-grid">
+                    {% for camera in cameras %}
+                    <div class="camera-card">
+                    <img src="{% static 'imperium_logo.png' %}" alt="Imperium" style="width:60px;margin-bottom:8px;">
+                        <h3>{{ camera.name }}</h3>
+<img src="/media/{{ camera.last_capture }}" style="width:180px;border-radius:8px;margin-bottom:10px;">
+                        {% if camera.description %}
+                        <p class="camera-desc">{{ camera.description }}</p>
+                        {% endif %}
+                        <div class="camera-actions"><a href="{% url 'cameras:delete_camera' camera.id %}" class="delete-link">Eliminar cámara</a><br>
+                            <a href="{% url 'cameras:generate_qr' camera.id %}" target="_blank">QR acceso seguro</a>
+                            
+                            <a href="{% url 'cameras:capture_frame' camera.id %}">Capturar</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>No hay cámaras registradas todavía.</p>
+                    <p>Agrega tu primera cámara usando RTSP para comenzar a monitorear.</p>
+                </div>
+            {% endif %}
+
+            <a href="{% url 'cameras:add_camera' %}">
+                <div class="add-camera-box">
+                    <span class="add-camera-icon">➕</span>
+                    <div class="add-camera-text">
+                        <strong>Agregar cámara</strong>
+                        <span>Registrar nueva cámara RTSP o generar un QR de acceso</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        <div class="section">
+            <a href="{% url 'cameras:captures_gallery' %}">Capturas</a>
+        </div>
+    </div>
+</body>
+</html>
