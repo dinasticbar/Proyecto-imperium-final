@@ -2,46 +2,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Fuente -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
     <meta charset="UTF-8">
     <title>QR de acceso · {{ camera.name }}</title>
     <link rel="stylesheet" href="{% static 'home.css' %}">
     <style>
-        /* ------------------ Fuente ------------------ */
-        :root{
-            --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            --font-heading: "Poppins", "Montserrat", var(--font-sans);
-            --base-size: 16px;
-        }
-        html{
-            font-size:var(--base-size);
-        }
-        body{
-            font-family:var(--font-sans);
-            font-weight:400;
-            color:#23272f;
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
-        }
-
-        .logo-text, .section {
-            font-family:var(--font-heading); font-weight:600; 
-        }
-        .logo-icon {
-            font-family:var(--font-heading); font-weight:700; 
-        }
-        .logout-btn, .section {
-            font-size:1rem; 
-        }
-
-        /* Eliminar márgenes */
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
         body {
             background:#0b1120;
             color:#e5e7eb;
