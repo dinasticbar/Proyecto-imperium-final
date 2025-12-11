@@ -83,12 +83,88 @@
             text-decoration: none;
             font-weight: 500;
         }
+        .filters-bar {
+            padding: 16px 24px;
+            background: #2b3039;
+            border-bottom: 1px solid #3a3f4b;
+            color: #fff;
+        }
+        .filter-form {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .filter-group label {
+            font-size: 0.9em;
+            color: #ddd;
+        }
+        .filter-group input, .filter-group select {
+            background: #23272f;
+            border: 1px solid #4f8cff;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        .filter-btn {
+            background: #4f8cff;
+            color: #fff;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .filter-btn:hover {
+            background: #3a7bd5;
+        }
+        .clear-filters {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .clear-filters:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="top-bar">
         <h2>Capturas</h2>
         <a href="{% url 'cameras:camera_list' %}">Volver a cámaras</a>
+    </div>
+    
+    <div class="filters-bar">
+        <form method="get" class="filter-form">
+            <div class="filter-group">
+                <label for="camera">Cámara:</label>
+                <select name="camera" id="camera">
+                    <option value="">Todas</option>
+                    {% for cam in all_cameras %}
+                        <option value="{{ cam.id }}" {% if selected_camera == cam.id %}selected{% endif %}>{{ cam.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="date_from">Desde:</label>
+                <input type="datetime-local" name="date_from" id="date_from" value="{{ date_from|default:'' }}">
+            </div>
+            <div class="filter-group">
+                <label for="date_to">Hasta:</label>
+                <input type="datetime-local" name="date_to" id="date_to" value="{{ date_to|default:'' }}">
+            </div>
+            <button type="submit" class="filter-btn">Filtrar</button>
+            {% if date_from or date_to %}
+                <a href="{% url 'cameras:captures_gallery' %}" class="clear-filters">Limpiar</a>
+            {% endif %}
+        </form>
     </div>
     <div class="captures-grid">
         {% for cap in captures %}

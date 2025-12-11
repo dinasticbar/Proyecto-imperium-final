@@ -1,28 +1,36 @@
 /* ------------------ Fuente ------------------ */
-:root{
+:root {
     --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     --font-heading: "Poppins", "Montserrat", var(--font-sans);
     --base-size: 16px;
 }
-html{
-    font-size:var(--base-size);
-}
-body{
-    font-family:var(--font-sans);
-    font-weight:400;
-    color:#23272f;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
+
+html {
+    font-size: var(--base-size);
 }
 
-.logo-text, .section {
-    font-family:var(--font-heading); font-weight:600; 
+body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: #23272f;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
+
+.logo-text,
+.section {
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
 .logo-icon {
-    font-family:var(--font-heading); font-weight:700; 
+    font-family: var(--font-heading);
+    font-weight: 700;
 }
-.logout-btn, .section {
-    font-size:1rem; 
+
+.logout-btn,
+.section {
+    font-size: 1rem;
 }
 
 /* Eliminar márgenes */
@@ -38,10 +46,12 @@ body {
     padding: 18px 32px 18px 24px;
     background: #23272f;
 }
+
 .logo {
     display: flex;
     align-items: center;
 }
+
 .logo-icon {
     background: #4f8cff;
     color: #fff;
@@ -55,12 +65,14 @@ body {
     justify-content: center;
     margin-right: 10px;
 }
+
 .logo-text {
     color: #fff;
     font-size: 1.3em;
     font-weight: 600;
     letter-spacing: 1px;
 }
+
 .logout-btn {
     background: #ff4d4f;
     color: #fff;
@@ -73,15 +85,25 @@ body {
     transition: background 0.2s;
     text-decoration: none;
 }
+
 .logout-btn:hover {
     background: #d9363e;
 }
+
 .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
+    padding: 40px 20px;
+    min-height: 80vh;
+    box-sizing: border-box;
 }
+
+.panel-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
 .add-camera-box {
     background: #f5f7fa;
     border: 2px dashed #4f8cff;
@@ -92,19 +114,111 @@ body {
     align-items: center;
     transition: box-shadow 0.2s;
 }
-.add-camera-box:hover {
-    box-shadow: 0 4px 16px rgba(79,140,255,0.12);
+
+.add-camera-link {
+    text-decoration: none;
+    display: block;
+    width: fit-content;
+    margin: 30px auto;
 }
+
+.add-camera-box:hover {
+    box-shadow: 0 4px 16px rgba(79, 140, 255, 0.12);
+}
+
 .add-camera-icon {
     font-size: 2.5em;
-    color: #4f8cff;
     margin-bottom: 10px;
 }
+
 .add-camera-text {
     font-size: 1.1em;
     color: #23272f;
     font-weight: 500;
 }
+
+.camera-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.camera-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    flex: 1 1 300px;
+    max-width: 400px;
+    text-align: center;
+    transition: transform 0.2s;
+    box-sizing: border-box;
+}
+
+.camera-card:hover {
+    transform: scale(1.05);
+}
+
+.camera {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    min-height: 200px;
+    background: #f0f0f0 url('imperium_logo.png') no-repeat center;
+    background-size: 50%;
+    object-fit: cover;
+}
+
+.camera-actions {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.empty-state {
+    text-align: center;
+    margin-top: 40px;
+}
+
+#empty-state-text {
+    color: #ff4d4f;
+}
+
+.delete-link {
+    color: #ff4d4f;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    border-radius: 6px;
+    border: 1px solid #d9363e;
+    padding: 6px 16px;
+    transition: background 0.2s;
+}
+
+.delete-link:hover {
+    color: #fff;
+    background: #d9363e;
+}
+
+.qr-link {
+    color: #23272f;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    border-radius: 6px;
+    border: 1px solid #23272f;
+    padding: 6px 16px;
+    transition: background 0.2s;
+}
+
+.qr-link:hover {
+    color: #fff;
+    background: #23272f;
+}
+
+/* ------------------ Footer ------------------ */
 .bottom-bar {
     position: fixed;
     bottom: 0;
@@ -115,9 +229,20 @@ body {
     justify-content: space-around;
     padding: 14px 0;
 }
-.bottom-bar .section {
+
+.bottom-bar .section a {
     color: #fff;
     font-size: 1.1em;
     font-weight: 500;
     cursor: pointer;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 1px solid #fff;
+    padding: 6px 16px;
+    transition: background 0.2s;
+}
+
+.bottom-bar .section a:hover {
+    background: #fff;
+    color: #23272f;
 }
